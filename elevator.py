@@ -1,5 +1,5 @@
 class Elevator:
-    def __init__(self, total_floors, start_floor):
+    def __init__(self, total_floors, start_floor=1):
         if total_floors < 2:
             raise ValueError("The building must have atleast 2 floors.")
         if not 1 <= start_floor <= total_floors:
