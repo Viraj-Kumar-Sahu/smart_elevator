@@ -42,6 +42,14 @@ print("Final floor:", simulation.elevator.current_floor)
 print("Waiting passengers:", len(simulation.waiting_requests))
 print("Passengers onboard:", len(simulation.onboard_requests))
 
+for number, request in enumerate(simulation.completed_requests, start=1):
+    print(
+        "Completed passenger", number,
+        "| route:", request.origin, "to", request.destination,
+        "| wait:", request.waiting_time(),
+        "| ride:", request.ride_time()
+    )
+
 total_wait = 0
 total_ride = 0
 
