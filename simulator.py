@@ -8,6 +8,7 @@ class ElevatorSimulator:
         self.current_time = 0
         self.waiting_requests = []
         self.onboard_requests = []
+        self.completed_requests = []
 
     def add_request(self, origin, destination):
         if not 1 <= origin <= self.elevator.total_floors:
@@ -41,6 +42,7 @@ class ElevatorSimulator:
         for request in self.waiting_requests[:]:
             if request.origin == current_floor:
                 self.waiting_requests.remove(request)
+                request.boarded_at = self.current_time
                 self.onboard_requests.append(request)
                 boarded_count += 1
 
@@ -52,6 +54,8 @@ class ElevatorSimulator:
 
         for request in self.onboard_requests[:]:
             if request.destination == current_floor:
+                request.completed_at = self.current_time
+                self.completed_requests.append(request)
                 self.onboard_requests.remove(request)
                 dropped_off_count += 1
 

@@ -41,3 +41,17 @@ while simulation.waiting_requests or simulation.onboard_requests:
 print("Final floor:", simulation.elevator.current_floor)
 print("Waiting passengers:", len(simulation.waiting_requests))
 print("Passengers onboard:", len(simulation.onboard_requests))
+
+total_wait = 0
+total_ride = 0
+
+for request in simulation.completed_requests:
+    total_wait += request.waiting_time()
+    total_ride += request.ride_time()
+
+completed_count = len(simulation.completed_requests)
+
+if completed_count > 0:
+    print("Average waiting time:", total_wait / completed_count)
+    print("Average ride time:", total_ride / completed_count)
+    print("Average total trip time:", (total_wait + total_ride) / completed_count)
