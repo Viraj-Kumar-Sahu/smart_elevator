@@ -1,10 +1,9 @@
-from controller import choose_direction
+from controller import choose_direction, choose_look_direction
 from simulator import ElevatorSimulator
 
 simulation = ElevatorSimulator(total_floors=5)
 
 simulation.add_request(origin=2, destination=5)
-simulation.add_request(origin=4, destination=1)
 simulation.add_request(origin=3, destination=1)
 
 while simulation.waiting_requests or simulation.onboard_requests:
