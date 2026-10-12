@@ -21,7 +21,7 @@ while simulation.waiting_requests or simulation.onboard_requests:
         dropped,
     )
 
-    direction = choose_direction(simulation)
+    direction = choose_look_direction(simulation)
 
     if direction is None:
         break
