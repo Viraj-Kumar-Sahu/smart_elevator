@@ -53,8 +53,10 @@ print("Passengers onboard:", len(simulation.onboard_requests))
 
 for number, request in enumerate(simulation.completed_requests, start=1):
     print(
-        "Completed passenger",
+        "Completed #",
         number,
+        "| ID:",
+        request.request_id,
         "| route:",
         request.origin,
         "to",

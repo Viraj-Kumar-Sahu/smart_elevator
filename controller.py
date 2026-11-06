@@ -72,14 +72,20 @@ def choose_fcfs_direction(simulation):
         return None
 
     print("  [fcfs] queue (oldest first):")
-    for req in sorted(pending, key=lambda request: request.requested_at):
+    for req in sorted(
+        pending,
+        key=lambda request: (request.requested_at, request.request_id),
+    ):
         if req.boarded_at is None:
             status = "waiting"
         else:
             status = "onboard"
-        print("    ", req.origin, "->", req.destination, "|", status)
+        print("    ID", req.request_id, "|", req.origin, "->", req.destination, "|", status)
 
-    oldest = min(pending, key=lambda request: request.requested_at)
+    oldest = min(
+        pending,
+        key=lambda request: (request.requested_at, request.request_id),
+    )
 
     if oldest.boarded_at is None:
         target_floor = oldest.origin

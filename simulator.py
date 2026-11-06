@@ -9,6 +9,7 @@ class ElevatorSimulator:
         self.waiting_requests = []
         self.onboard_requests = []
         self.completed_requests = []
+        self.next_request_id = 1
 
     def add_request(self, origin, destination):
         if not 1 <= origin <= self.elevator.total_floors:
@@ -18,10 +19,12 @@ class ElevatorSimulator:
             raise ValueError("Destination floor is outside the building.")
 
         request = PassengerRequest(
+            request_id=self.next_request_id,
             origin=origin,
             destination=destination,
             requested_at=self.current_time,
         )
+        self.next_request_id += 1
 
         self.waiting_requests.append(request)
         return request
