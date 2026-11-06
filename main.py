@@ -5,7 +5,7 @@ from controller import (
 )
 from simulator import ElevatorSimulator
 
-simulation = ElevatorSimulator(total_floors=8)
+simulation = ElevatorSimulator(total_floors=8, dwell_time=1)
 
 simulation.add_request(origin=2, destination=5)
 simulation.add_request(origin=1, destination=7)
@@ -29,9 +29,16 @@ while simulation.waiting_requests or simulation.onboard_requests:
         dropped,
     )
 
+    if boarded or dropped:
+        simulation.wait_at_floor()
+
     # direction = choose_direction(simulation)
     # direction = choose_look_direction(simulation)
     direction = choose_fcfs_direction(simulation)
+
+    if direction == "stop":
+        simulation.advance_time()
+        continue
 
     if direction is None:
         break

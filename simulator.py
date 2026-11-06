@@ -3,9 +3,10 @@ from passenger import PassengerRequest
 
 
 class ElevatorSimulator:
-    def __init__(self, total_floors):
+    def __init__(self, total_floors, dwell_time=1):
         self.elevator = Elevator(total_floors=total_floors)
         self.current_time = 0
+        self.dwell_time = dwell_time
         self.waiting_requests = []
         self.onboard_requests = []
         self.completed_requests = []
@@ -31,6 +32,10 @@ class ElevatorSimulator:
 
     def advance_time(self):
         self.current_time += 1
+
+    def wait_at_floor(self):
+        for _ in range(self.dwell_time):
+            self.advance_time()
 
     def move_one_floor(self, direction):
         moved = self.elevator.move(direction)
