@@ -1,10 +1,18 @@
-from controller import choose_direction, choose_look_direction
+from controller import (
+    choose_direction,
+    choose_fcfs_direction,
+    choose_look_direction,
+)
 from simulator import ElevatorSimulator
 
-simulation = ElevatorSimulator(total_floors=5)
+simulation = ElevatorSimulator(total_floors=8)
 
 simulation.add_request(origin=2, destination=5)
-simulation.add_request(origin=3, destination=1)
+simulation.add_request(origin=1, destination=7)
+simulation.add_request(origin=1, destination=8)
+simulation.add_request(origin=5, destination=4)
+simulation.add_request(origin=6, destination=1)
+simulation.add_request(origin=8, destination=7)
 
 while simulation.waiting_requests or simulation.onboard_requests:
     current_floor = simulation.elevator.current_floor
@@ -21,7 +29,9 @@ while simulation.waiting_requests or simulation.onboard_requests:
         dropped,
     )
 
-    direction = choose_look_direction(simulation)
+    # direction = choose_direction(simulation)
+    # direction = choose_look_direction(simulation)
+    direction = choose_fcfs_direction(simulation)
 
     if direction is None:
         break
@@ -43,10 +53,16 @@ print("Passengers onboard:", len(simulation.onboard_requests))
 
 for number, request in enumerate(simulation.completed_requests, start=1):
     print(
-        "Completed passenger", number,
-        "| route:", request.origin, "to", request.destination,
-        "| wait:", request.waiting_time(),
-        "| ride:", request.ride_time()
+        "Completed passenger",
+        number,
+        "| route:",
+        request.origin,
+        "to",
+        request.destination,
+        "| wait:",
+        request.waiting_time(),
+        "| ride:",
+        request.ride_time(),
     )
 
 total_wait = 0

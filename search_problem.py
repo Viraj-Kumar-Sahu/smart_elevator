@@ -5,8 +5,10 @@ def transition(state, action, requests, total_floors):
         next_floor = current_floor + 1
     elif action == "down":
         next_floor = current_floor - 1
+    elif action == "stay":
+        next_floor = current_floor
     else:
-        raise ValueError("Action must be 'up' or 'down'.")
+        raise ValueError("Action must be 'up' or 'down' or 'stay'.")
 
     if not 1 <= next_floor <= total_floors:
         return None
@@ -25,7 +27,7 @@ def transition(state, action, requests, total_floors):
 def get_successors(state, requests, total_floors):
     successors = []
 
-    for action in ("up", "down"):
+    for action in ("up", "down", "stay"):
         next_state = transition(
             state,
             action,
